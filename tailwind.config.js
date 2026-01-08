@@ -19,6 +19,23 @@ const config = {
         textLight: "#9ca3af",
         darkHover: "#18191E",
       },
+      keyframes: {
+        wave: {
+          '0%': { transform: 'rotate(0deg)' },
+          '15%': { transform: 'rotate(15deg)' },
+          '30%': { transform: 'rotate(-10deg)' },
+          '45%': { transform: 'rotate(15deg)' },
+          '60%': { transform: 'rotate(-10deg)' },
+          '75%': { transform: 'rotate(15deg)' },
+          '100%': { transform: 'rotate(0deg)' },
+        },
+      },
+      animation: {
+        wave: 'wave 2s infinite',
+      },
+      transformOrigin: {
+        '70-70': '70% 70%',
+      },
     },
   },
   plugins: [],

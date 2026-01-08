@@ -37,9 +37,26 @@ const Navbar = () => {
           className="min-w-[150px] cursor-pointer text-lg font-[600] tracking-wide sm:text-xl sm:font-[800]"
         >
           {/* for mobile view */}
-          <span className="sm:hidden">@Prabhulal</span>
+          <span className="sm:hidden">
+            @Prabhulal{" "}
+            <span
+              className="animate-wave inline-block origin-[70%_70%]"
+              style={{ animationDelay: "2s" }}
+            >
+              👋
+            </span>
+          </span>
+
           {/* for web view */}
-          <span className="hidden sm:block">@Prabhulal Raghwani</span>
+          <span className="hidden sm:block">
+            @Prabhulal Raghwani{" "}
+            <span
+              className="animate-wave inline-block origin-[70%_70%]"
+              style={{ animationDelay: "2s" }}
+            >
+              👋
+            </span>
+          </span>
         </ScrollLink>
 
         {/* toggle navbar mobile view */}
@@ -84,7 +101,10 @@ const Navbar = () => {
                   <a href="https://x.com/Prabhulal0410" target="_blank">
                     <FaXTwitter />
                   </a>
-                  <a href="mailto:prabhulal.raghwani410@gmail.com" target="_blank">
+                  <a
+                    href="mailto:prabhulal.raghwani410@gmail.com"
+                    target="_blank"
+                  >
                     <HiMailOpen />
                   </a>
                 </div>
