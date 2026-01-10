@@ -8,46 +8,56 @@ import Image from "next/image";
 import linkdinimg from "@/assets/linkdinimg.jpeg";
 import { FaDownload, FaArrowRight } from "react-icons/fa";
 
-/* ------------------ FLOATING ANIMATION ------------------ */
+/* Floating animation (desktop only) */
 const floating = {
-  animate: { y: [0, -14, 0] },
+  animate: { y: [0, -12, 0] },
   transition: { duration: 4, repeat: Infinity, ease: "easeInOut" },
 };
 
-const HeroSection = () => {
-  const refContent = useRef(null);
-  const inView = useInView(refContent, { once: true });
+export default function HeroSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
 
-  /* ------------------ MOUSE GLOW ------------------ */
+  /* Mouse glow values */
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const smoothX = useSpring(mouseX, { stiffness: 100, damping: 20 });
-  const smoothY = useSpring(mouseY, { stiffness: 100, damping: 20 });
+  const smoothX = useSpring(mouseX, { stiffness: 80, damping: 18 });
+  const smoothY = useSpring(mouseY, { stiffness: 80, damping: 18 });
 
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    setIsDesktop(window.innerWidth > 768);
+    const checkScreen = () => setIsDesktop(window.innerWidth >= 1024);
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
 
-    const move = (e) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
+    if (window.innerWidth >= 1024) {
+      const move = (e) => {
+        mouseX.set(e.clientX - 150);
+        mouseY.set(e.clientY - 150);
+      };
 
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
+      window.addEventListener("mousemove", move);
+
+      return () => {
+        window.removeEventListener("mousemove", move);
+        window.removeEventListener("resize", checkScreen);
+      };
+    }
+
+    return () => window.removeEventListener("resize", checkScreen);
+  }, [mouseX, mouseY]);
 
   return (
     <section
       id="intro"
-      className="relative min-h-screen w-full overflow-hidden px-4 pt-20 sm:px-6"
+      className="relative min-h-screen overflow-hidden px-4 pt-24 sm:px-6"
     >
-      {/* 🌊 Animated Gradient Background */}
+      {/* Animated Gradient Background */}
       <motion.div
         className="absolute inset-0 -z-20"
         animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
         style={{
           background:
             "linear-gradient(120deg, rgba(59,130,246,0.15), rgba(147,51,234,0.15), rgba(59,130,246,0.15))",
@@ -55,10 +65,10 @@ const HeroSection = () => {
         }}
       />
 
-      {/* 🎯 Mouse Follow Glow (Desktop Only) */}
+      {/* Mouse Follow Glow (Desktop Only) */}
       {isDesktop && (
         <motion.div
-          className="pointer-events-none fixed top-0 left-0 z-0 h-72 w-72 rounded-full bg-blue-500/20 blur-[120px]"
+          className="pointer-events-none fixed top-0 left-0 z-0 h-72 w-72 rounded-full bg-blue-500/20 blur-[130px]"
           style={{
             translateX: smoothX,
             translateY: smoothY,
@@ -66,92 +76,85 @@ const HeroSection = () => {
         />
       )}
 
-      <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-10 lg:flex-row">
-        {/* ---------------- LEFT CONTENT ---------------- */}
+      <div className="relative mx-auto flex max-w-7xl flex-col-reverse items-center gap-12 lg:flex-row">
+        {/* LEFT CONTENT */}
         <motion.div
-          ref={refContent}
+          ref={ref}
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="flex-1"
+          className="flex-1 text-center lg:text-left"
         >
-          <h1 className="mb-4 text-4xl font-extrabold text-white md:text-5xl xl:text-6xl">
-            I&apos;m <span className="text-heading drop-shadow-[0_0_20px_rgba(59,130,246,0.9)]">Prabhulal</span>, a{' '}
-            <span className="text-heading drop-shadow-[0_0_20px_rgba(59,130,246,0.9)]">passionate</span> frontend developer
+          <h1 className="mb-4 text-3xl font-extrabold text-white sm:text-4xl xl:text-6xl">
+            Hi, I’m{" "}
+            <span className="text-heading drop-shadow-[0_0_20px_rgba(59,130,246,0.9)]">
+              Prabhulal
+            </span>
+            <br />
+            Frontend Developer
           </h1>
 
           <TypeAnimation
             sequence={[
               "Building premium UI with React & Next.js",
               1200,
-              "Creating smooth, scalable frontend experiences",
+              "Crafting smooth, scalable frontend experiences",
               1200,
               "Turning ideas into production-ready code",
               1200,
             ]}
             speed={45}
             repeat={Infinity}
-            className="text-base text-textPara md:text-xl"
+            className="text-sm text-textPara sm:text-lg"
           />
 
-          <p className="mt-4 max-w-xl text-textPara">
-            I design and build modern, high-performance web interfaces focused on clarity, motion and user experience.
+          <p className="mx-auto mt-4 max-w-xl text-textPara lg:mx-0">
+            I build modern, high-performance web interfaces with a strong focus
+            on motion, accessibility, and clean architecture.
           </p>
 
-          {/* BUTTONS */}
-          <div className="mt-8 flex flex-col gap-5 sm:flex-row">
-            {/* Hire Me */}
-            <motion.div variants={floating} animate="animate" className="flex items-center">
-              <ScrollLink
-                to="contact"
-                smooth
-                duration={900}
-                className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-white px-8 py-3 font-bold text-darkHover shadow-[0_0_35px_rgba(255,255,255,0.4)] transition-all hover:-translate-y-1"
-              >
-                Hire Me
-                <motion.span
-                  animate={{ y: [0, 4, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
-                >
-                  <FaArrowRight />
-                </motion.span>
-              </ScrollLink>
-            </motion.div>
+          {/* CTA BUTTONS */}
+          <div className="mt-8 flex w-full flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
+            {/* Primary CTA */}
+            <ScrollLink
+              to="projects"
+              smooth
+              duration={800}
+              className="group inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-white px-8 py-3 font-bold text-darkHover shadow-lg transition-all hover:-translate-y-1 sm:w-auto"
+            >
+              View Projects
+              <FaArrowRight className="transition-transform group-hover:translate-x-1" />
+            </ScrollLink>
 
-            {/* 💎 Download CV */}
-            <motion.a
+            {/* Secondary CTA */}
+            <a
               href="https://drive.google.com/file/d/1wRgaFmytWUjihBWk56ehBRhDMdr4abE3/view"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-center gap-3 rounded-full border-2 border-white px-8 py-3 font-medium text-white transition-all hover:bg-white hover:text-darkHover"
+              className="inline-flex w-full items-center justify-center gap-3 rounded-full border-2 border-white px-8 py-3 font-medium text-white transition-all hover:bg-white hover:text-darkHover sm:w-auto"
             >
-              <span>Download CV</span>
-              <motion.span
-                animate={{ y: [0, 4, 0] }}
-                transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
-              >
-                <FaDownload />
-              </motion.span>
-            </motion.a>
+              Download CV
+              <FaDownload />
+            </a>
           </div>
         </motion.div>
 
-        {/* ---------------- IMAGE ---------------- */}
-        <motion.div variants={floating} animate="animate" className="relative">
-          <motion.div whileHover={{ scale: 1.06, rotate: 2 }}>
-            <Image
-              src={linkdinimg}
-              alt="Prabhulal"
-              width={380}
-              height={380}
-              priority
-              className="relative rounded-full object-cover shadow-[0_0_45px_rgba(59,130,246,0.6)]"
-            />
-          </motion.div>
+        {/* IMAGE */}
+        <motion.div
+          variants={isDesktop ? floating : {}}
+          animate={isDesktop ? "animate" : undefined}
+          className="relative"
+        >
+          <Image
+            src={linkdinimg}
+            alt="Prabhulal"
+            width={320}
+            height={320}
+            priority
+            className="rounded-full object-cover shadow-[0_0_40px_rgba(59,130,246,0.55)] sm:w-[360px]"
+          />
         </motion.div>
       </div>
     </section>
   );
-};
-
-export default HeroSection;
+}
