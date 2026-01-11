@@ -1,70 +1,97 @@
-# Portfolio Website
+🚀 Portfolio Website
 
-Welcome to my portfolio website! This project showcases my skills, projects, and experiences. It is built using Next.js, Framer Motion, Tailwind CSS, and TypeScript.
+A modern and responsive portfolio website built to showcase my skills, projects, and professional experience as a frontend developer. The website focuses on clean design, smooth animations, and performance optimization to deliver a polished user experience across all devices.
 
-## Table of Contents
+🔗 Live Demo: https://portfolio-aashish.vercel.app
 
-- [Demo](#demo)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Contributing](#contributing)
+📌 Overview
 
-## Demo
+This portfolio project highlights my frontend development capabilities, featured projects, and contact information in a structured and visually engaging format. It is built using modern web technologies and follows best practices for maintainability, responsiveness, and performance.
 
-Check out the live demo of the portfolio website [here](https://portfolio-aashish.vercel.app).
+✨ Key Features
 
-## Features
+📱 Fully responsive and mobile-first design
 
-- Interactive animations using Framer Motion
-- Responsive design with Tailwind CSS
-- TypeScript for type safety and improved developer experience
-- Showcasing projects, skills, and contact information
-- Dynamic project loading with a "Show More" button
+🎬 Smooth and interactive animations using Framer Motion
 
-## Technologies Used
+🧩 Clean and reusable React component architecture
 
-- **Next.js**: A React framework for building server-side rendered applications
-- **Framer Motion**: A library for creating animations and transitions in React
-- **Tailwind CSS**: A utility-first CSS framework for rapid UI development
-- **TypeScript**: A superset of JavaScript that adds static types
+⚡ Optimized performance with Next.js
 
-## Installation
+📂 Dynamic project listing with a “Show More” feature
 
-To get started with the project, follow these steps:
+📩 Contact form integration using Formspree
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/aashish-dhiman/portfolio.git
-    cd portfolio
-    ```
+🎨 Modern UI styled with Tailwind CSS
 
-2. Install dependencies:
-    ```bash
-    npm install
-    ```
+🛠️ Tech Stack
 
-3. Create a `.env.local` file in the root directory and add your environment variables:
-    ```env
-    NEXT_PUBLIC_FORM_ID=your_form_id_from_formspree
-    ```
+⚛️ React.js – Component-based UI development
 
-4. Run the development server:
-    ```bash
-    npm run dev
-    ```
+🚀 Next.js – React framework for server-side rendering and performance optimization
 
-5. Open your browser and navigate to `http://localhost:3000`.
+🎨 Tailwind CSS – Utility-first CSS framework for rapid and consistent styling
 
-## Contributing
+🎞️ Framer Motion – Animation library for smooth transitions and interactions
 
-Contributions are welcome! If you have any suggestions or find any bugs, please open an issue or submit a pull request.
+📬 Formspree – Contact form handling
 
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/your-feature`)
-3. Commit your changes (`git commit -m 'Add your feature'`)
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Open a pull request
+🗂️ Project Structure
 
+📦 Components – Reusable UI components
 
-Thank you for visiting my portfolio website!
+🧭 Pages / App Router – Application routing and layout
+
+🎨 Styles – Tailwind CSS configuration and global styles
+
+🖼️ Public Assets – Static images and resources
+
+⚙️ Installation & Setup
+
+Follow these steps to run the project locally:
+
+1️⃣ Clone the repository
+git clone https://github.com/aashish-dhiman/portfolio.git
+cd portfolio
+
+2️⃣ Install dependencies
+npm install
+
+3️⃣ Configure environment variables
+
+Create a .env.local file in the root directory:
+
+NEXT_PUBLIC_FORM_ID=your_formspree_form_id
+
+4️⃣ Start the development server
+npm run dev
+
+5️⃣ Open in browser
+
+Navigate to:
+
+http://localhost:3000
+
+🌍 Deployment
+
+The project is deployed on Vercel, utilizing Next.js optimizations for fast builds and global content delivery.
+
+🤝 Contributing
+
+Contributions and suggestions are always welcome!
+
+🍴 Fork the repository
+
+🌿 Create a new branch (git checkout -b feature/your-feature)
+
+💾 Commit your changes (git commit -m "Add feature")
+
+⬆️ Push to the branch (git push origin feature/your-feature)
+
+🔁 Open a pull request
+
+📬 Contact
+
+If you’d like to collaborate, discuss opportunities, or share feedback, feel free to reach out via the contact form available on the website.
+
+✨ Thank you for reviewing my portfolio project!
