@@ -26,10 +26,10 @@ export default function PageLoader() {
     if (!hydrated) return;
 
     if (index < messages.length - 1) {
-      const timer = setTimeout(() => setIndex(index + 1), 900);
+      const timer = setTimeout(() => setIndex(index + 1), 700);
       return () => clearTimeout(timer);
     } else {
-      const exitTimer = setTimeout(() => setVisible(false), 1200);
+      const exitTimer = setTimeout(() => setVisible(false), 900);
       return () => clearTimeout(exitTimer);
     }
   }, [index, hydrated]);
