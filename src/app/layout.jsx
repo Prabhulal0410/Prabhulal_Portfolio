@@ -2,6 +2,7 @@ import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import ClientLoaderCleanup from "@/components/ClientLoaderCleanup"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,17 +19,18 @@ export const metadata = {
   },
 };
 
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={montserrat.className}
-        style={{ backgroundColor: "#121212" }}
-      >
-        {/* 🔥 INSTANT CSS LOADER (NO JS REQUIRED) */}
+      <body style={{ backgroundColor: "#121212" }}>
+        {/* INSTANT CSS LOADER */}
         <div id="initial-loader">
           <div className="pulse"></div>
         </div>
+
+        {/* Removes CSS loader after hydration */}
+        <ClientLoaderCleanup />
 
         <Analytics />
         <SpeedInsights />

@@ -15,96 +15,59 @@ const messages = [
 export default function PageLoader() {
   const [hydrated, setHydrated] = useState(false);
   const [index, setIndex] = useState(0);
-  const [visible, setVisible] = useState(true);
-  const [progress, setProgress] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(true);
+  const [progress, setProgress] = useState(0);
 
-  // Hydration
+  /* -------------------- Hydration -------------------- */
   useEffect(() => {
     setHydrated(true);
 
+    // remove instant CSS loader from layout.jsx
     const el = document.getElementById("initial-loader");
     if (el) el.remove();
   }, []);
 
-  // Typing effect
+  /* -------------------- Typing Effect -------------------- */
   useEffect(() => {
     if (!hydrated) return;
 
-    const currentMessage = messages[index];
+    const text = messages[index];
+    let charIndex = 0;
+
     setDisplayedText("");
     setIsTyping(true);
 
-    let charIndex = 0;
-    const interval = setInterval(() => {
-      if (charIndex < currentMessage.length) {
-        setDisplayedText(currentMessage.slice(0, charIndex + 1));
+    const typingInterval = setInterval(() => {
+      if (charIndex < text.length) {
+        setDisplayedText(text.slice(0, charIndex + 1));
         charIndex++;
       } else {
-        clearInterval(interval);
+        clearInterval(typingInterval);
         setIsTyping(false);
-      }
-    }, 70);
 
-    return () => clearInterval(interval);
+        // move to next message after pause
+        setTimeout(() => {
+          setIndex((i) => (i + 1) % messages.length);
+        }, 700);
+      }
+    }, 65);
+
+    return () => clearInterval(typingInterval);
   }, [index, hydrated]);
 
-  // Progress
+  /* -------------------- Progress Animation -------------------- */
   useEffect(() => {
     if (!hydrated) return;
 
-    const total = 6000;
-    const step = 50;
-    const inc = (step / total) * 100;
-
     const timer = setInterval(() => {
-      setProgress((p) => (p >= 100 ? 100 : p + inc));
-    }, step);
+      setProgress((p) => (p >= 95 ? 20 : p + 1));
+    }, 40);
 
     return () => clearInterval(timer);
   }, [hydrated]);
 
-  // Message cycle
-useEffect(() => {
-  if (!hydrated) return;
-
-  const currentMessage = messages[index];
-  setDisplayedText("");
-  setIsTyping(true);
-
-  let charIndex = 0;
-  const typingSpeed = 65; // smoother
-  const pauseAfterTyping = 700; // readable pause
-
-  const interval = setInterval(() => {
-    if (charIndex < currentMessage.length) {
-      setDisplayedText(currentMessage.slice(0, charIndex + 1));
-      charIndex++;
-    } else {
-      clearInterval(interval);
-      setIsTyping(false);
-
-      // ✅ Change message ONLY after typing completes
-      setTimeout(() => {
-        setIndex((i) => (i + 1) % messages.length);
-      }, pauseAfterTyping);
-    }
-  }, typingSpeed);
-
-  return () => clearInterval(interval);
-}, [index, hydrated]);
-
-
-  // Auto hide
-  useEffect(() => {
-    if (!hydrated) return;
-
-    const t = setTimeout(() => setVisible(false), 10000);
-    return () => clearTimeout(t);
-  }, [hydrated]);
-
-  if (!hydrated || !visible) return null;
+  if (!hydrated) return null;
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden px-4">
@@ -132,9 +95,8 @@ useEffect(() => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.45, ease: "easeOut" }}
-            style={{ textWrap: "balance" }}
             className="
-              text-center font-bold tracking-tight text-white leading-tight break-words
+              text-center font-bold tracking-tight text-white leading-tight
               text-3xl sm:text-4xl md:text-5xl lg:text-6xl
               max-w-[22ch] sm:max-w-[26ch] md:max-w-[32ch]
             "
@@ -152,22 +114,18 @@ useEffect(() => {
 
         {/* Progress */}
         <div className="w-full max-w-sm space-y-2">
-          <div className="flex justify-between text-[11px] sm:text-xs text-white/50">
-            <span>
-              {progress < 70
-                ? "Preparing your experience…"
-                : "Almost ready…"}
-            </span>
+          <div className="flex justify-between text-xs text-white/50">
+            <span>Loading experience…</span>
             <span>{Math.round(progress)}%</span>
           </div>
 
-          <div className="relative h-[4px] sm:h-[4px] bg-white/10 overflow-hidden rounded-full">
+          <div className="relative h-[4px] bg-white/10 overflow-hidden rounded-full">
             <motion.div
               className="absolute inset-y-0 left-0 bg-white"
               style={{ width: `${progress}%` }}
             />
             <motion.div
-              className="absolute inset-y-0 w-24 sm:w-32 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+              className="absolute inset-y-0 w-32 bg-gradient-to-r from-transparent via-white/40 to-transparent"
               animate={{ x: ["-100%", "300%"] }}
               transition={{ duration: 1.8, repeat: Infinity }}
             />
