@@ -13,7 +13,7 @@ const config = {
       },
       colors: {
         bgDark: "#121212",
-        textPara: "#57556C",
+        textPara: "#E0E2EC" ,
         heading: "#3182CE",
         textWhite: "#FAF7F2",
         textLight: "#9ca3af",
