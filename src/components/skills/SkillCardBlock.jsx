@@ -35,6 +35,27 @@ import { SiShadcnui } from "react-icons/si";
 import skill from "@/assets/skill.png";
 import Image from "next/image";
 
+// MySkills data  ---> MySkills is just a JavaScript object.--> {name: "React",icon: "ReactOriginal"}
+//    ↓
+// icon string ---> ReactOriginal" is just a STRING , It cannot render anything by itself --> const icon = "ReactOriginal" (Remember this name so we can find the real icon later)
+//    ↓
+// switch-case mapping ---> It converts the string into a real React component (If the string says ReactOriginal, use the ReactOriginal component)
+
+// let IconComponent = null;
+// switch (icon) {
+//   case "ReactOriginal":
+//     IconComponent = ReactOriginal; // component reference
+//     break;
+// }
+//    ↓
+// Devicon React component --->  ReactOriginal comes from "devicons-react", It is a React FUNCTION COMPONENT that returns SVG JSX (Now we have a real, executable React component)
+// function ReactOriginal(props) {
+//   return <svg>...</svg>;
+// }
+//    ↓
+// Rendered icon ---> React sees a component and renders it to the DOM, <IconComponent className="scale-[150%]" />
+
+
 const SkillCardBlock = ({ icon, name }) => {
   let IconComponent = null;
 

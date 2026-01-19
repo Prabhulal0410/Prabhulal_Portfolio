@@ -4,6 +4,11 @@ import { motion, useInView } from "framer-motion";
 import SkillCard from "./skills/SkillCard";
 import { MySkills } from "@/constants/MySkills";
 
+// Skills ----> workflow
+//  └── SkillCard (per category)
+//       └── SkillCardBlock (per individual skill)
+
+
 const Skills = (props) => {
   const refHeading = useRef(null);
   const refContent = useRef(null);
@@ -59,3 +64,41 @@ const Skills = (props) => {
 };
 
 export default Skills;
+
+
+// ┌────────────────────────┐
+// │ MySkills (Data File)   │
+// │ {                      │
+// │  name: "React",        │
+// │  icon: "ReactOriginal" │
+// │ }                      │
+// └─────────────┬──────────┘
+//               ↓
+// ┌────────────────────────┐
+// │ icon (string)          │
+// │ "ReactOriginal"        │
+// │ (instruction only)     │
+// └─────────────┬──────────┘
+//               ↓
+// ┌────────────────────────┐
+// │ switch–case mapping    │
+// │ "ReactOriginal" →      │
+// │ ReactOriginal          │
+// └─────────────┬──────────┘
+//               ↓
+// ┌────────────────────────┐
+// │ Devicon React Component│
+// │ function ReactOriginal │
+// │ returns SVG JSX        │
+// └─────────────┬──────────┘
+//               ↓
+// ┌────────────────────────┐
+// │ React Rendering Engine │
+// │ Converts JSX → DOM     │
+// └─────────────┬──────────┘
+//               ↓
+// ┌────────────────────────┐
+// │ Browser                │
+// │ Displays SVG Icon      │
+// └────────────────────────┘
+
