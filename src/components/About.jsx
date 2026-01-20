@@ -159,20 +159,33 @@ const About = () => {
               <h5 className="text-xl font-bold text-textWhite">
                 Coding Profiles
               </h5>
-              <div className="mt-2 flex items-center gap-3">
+
+              <div className="mt-3 flex items-center gap-3">
+                {/* LeetCode */}
                 <a
                   href="https://leetcode.com/u/PrabhulalRaghwani/"
                   target="_blank"
                   title="Leetcode"
-                  className="flex items-center gap-1 rounded-md bg-[#1d1d1d] px-3 py-2 text-sm font-medium text-orange-500 transition-all duration-200 ease-in-out hover:scale-[1.05]"
+                  className="flex items-center gap-2 rounded-md border border-orange-500/30 
+                 bg-gradient-to-r from-[#1f1f1f] to-[#2a2a2a]
+                 px-3 py-2 text-sm font-medium text-orange-400
+                 transition-all duration-200 ease-in-out
+                 hover:border-orange-400 hover:text-orange-300 hover:shadow-md hover:shadow-orange-500/20"
                 >
-                  <SiLeetcode className="size-6" /> Leetcode
+                  <SiLeetcode className="size-6" />
+                  Leetcode
                 </a>
+
+                {/* NamasteDev */}
                 <a
                   href="https://namastedev.com/prabhulal.raghwani410"
                   target="_blank"
                   title="NamasteDev"
-                  className="flex items-center gap-1 rounded-md bg-green-800 px-3 py-2 text-sm font-medium text-orange-500 transition-all duration-200 ease-in-out hover:scale-[1.05] "
+                  className="flex items-center gap-2 rounded-md border border-emerald-500/30
+                 bg-gradient-to-r from-[#0f2f23] to-[#134235]
+                 px-3 py-2 text-sm font-medium text-emerald-400
+                 transition-all duration-200 ease-in-out
+                 hover:border-emerald-400 hover:text-emerald-300 hover:shadow-md hover:shadow-emerald-500/20"
                 >
                   <Image
                     src={namastedevIcon}
