@@ -29,6 +29,7 @@ import {
   DartOriginal,
   FlutterOriginal,
   FirebaseOriginal,
+  JsonOriginal,
 } from "devicons-react";
 import { FaGithub } from "react-icons/fa";
 import { SiShadcnui } from "react-icons/si";
@@ -55,9 +56,7 @@ import Image from "next/image";
 //    ↓
 // Rendered icon ---> React sees a component and renders it to the DOM, <IconComponent className="scale-[150%]" />
 
-
 // MySkills stores icon names as strings, the switch-case maps those strings to Devicon React components, and React renders the selected component as an SVG icon in the browser.
-
 
 const SkillCardBlock = ({ icon, name }) => {
   let IconComponent = null;
@@ -152,6 +151,12 @@ const SkillCardBlock = ({ icon, name }) => {
       break;
     case "DartOriginal":
       IconComponent = DartOriginal;
+      break;
+    case "JsonOriginal":
+      IconComponent = JsonOriginal;
+      break;
+    case "FramermotionOriginal":
+      IconComponent = FramermotionOriginal;
       break;
     // case "FlutterOriginal":
     //   IconComponent = FlutterOriginal;

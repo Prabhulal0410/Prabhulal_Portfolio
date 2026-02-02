@@ -1,4 +1,3 @@
-
 export const MySkills = [
   {
     title: "Programming Languages",
@@ -81,6 +80,14 @@ export const MySkills = [
         name: "Redux",
         icon: "ReduxOriginal",
       },
+      {
+  name: "Framer Motion",
+  icon: "FramermotionOriginal",
+},
+      {
+        name: "JSON",
+        icon: "JsonOriginal",
+      },
       // {
       //   name: "React Query",
       //   icon: null,
@@ -116,9 +123,9 @@ export const MySkills = [
         icon: "GithubOriginal",
       },
       {
-      name: "Figma",         
-      icon: "FigmaOriginal",
-    },
+        name: "Figma",
+        icon: "FigmaOriginal",
+      },
       // {
       //   name: "Prisma",
       //   icon: "PrismaOriginal",
