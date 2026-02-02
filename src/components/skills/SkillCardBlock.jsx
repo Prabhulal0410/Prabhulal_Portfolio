@@ -30,6 +30,8 @@ import {
   FlutterOriginal,
   FirebaseOriginal,
   JsonOriginal,
+  VercelOriginal,
+  NetlifyOriginal,
 } from "devicons-react";
 import { FaGithub } from "react-icons/fa";
 import { SiShadcnui } from "react-icons/si";
@@ -155,8 +157,11 @@ const SkillCardBlock = ({ icon, name }) => {
     case "JsonOriginal":
       IconComponent = JsonOriginal;
       break;
-    case "FramermotionOriginal":
-      IconComponent = FramermotionOriginal;
+      case "VercelOriginal":
+      IconComponent = VercelOriginal;
+      break;
+      case "NetlifyOriginal":
+      IconComponent = NetlifyOriginal;
       break;
     // case "FlutterOriginal":
     //   IconComponent = FlutterOriginal;

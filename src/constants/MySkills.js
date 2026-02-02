@@ -81,10 +81,6 @@ export const MySkills = [
         icon: "ReduxOriginal",
       },
       {
-  name: "Framer Motion",
-  icon: "FramermotionOriginal",
-},
-      {
         name: "JSON",
         icon: "JsonOriginal",
       },
@@ -133,6 +129,14 @@ export const MySkills = [
       {
         name: "Postman",
         icon: "PostmanOriginal",
+      },
+      {
+        name: "Vercel",
+        icon: "VercelOriginal",
+      },
+      {
+        name: "Netlify",
+        icon: "NetlifyOriginal",
       },
     ],
     index: 5,

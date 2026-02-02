@@ -9,7 +9,7 @@ const SkillCard = ({ title, skills }) => {
       <div className="grid grid-cols-2 place-items-center items-start flex-row flex-wrap sm:items-center justify-start gap-3 sm:flex md:gap-5">
         {skills?.map((skill, i) => (
           <motion.div
-            key={i}
+            key={skill.name}
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 1 }}
