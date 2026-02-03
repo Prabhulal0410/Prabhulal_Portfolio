@@ -72,7 +72,7 @@ This portfolio serves as a personal platform to present my technical expertise, 
 
 ## 📬 **Contact**
 
-**For collaboration, feedback, or professional opportunities, feel free to reach out via the contact form available on the website.**
+**For collaboration, feedback, or professional opportunities, feel free to reach out via the contact form available on the website**
 
 ---
 
