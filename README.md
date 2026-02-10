@@ -1,6 +1,6 @@
 # 🚀 Portfolio Website
 
-A modern, responsive portfolio website designed to showcase my frontend development skills, selected projects, and professional experience. The application emphasizes clean UI design, smooth animations, and performance optimization to deliver a high-quality user experience across all devices.
+A modern, responsive portfolio website designed to showcase my frontend development skills, selected projects, and professional experience. The application emphasizes clean UI design, smooth animations, and performance optimization to deliver a high-quality user experience across all devices
 
 🔗 **Live Demo:** https://prabhulalportfolio.vercel.app/
 
