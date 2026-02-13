@@ -9,7 +9,7 @@ import {
   PythonOriginal,
   GithubOriginal,
   GitOriginal,
-  FigmaOriginal,
+  // FigmaOriginal,
   TypescriptOriginal,
   ReduxOriginal,
   BootstrapOriginal,
@@ -93,9 +93,9 @@ const SkillCardBlock = ({ icon, name }) => {
     case "PrismaOriginal":
       IconComponent = PrismaOriginal;
       break;
-    case "FigmaOriginal":
-      IconComponent = FigmaOriginal;
-      break;
+    // case "FigmaOriginal":
+    //   IconComponent = FigmaOriginal;
+    //   break;
     case "BootstrapOriginal":
       IconComponent = BootstrapOriginal;
       break;

@@ -118,10 +118,10 @@ export const MySkills = [
         name: "Github",
         icon: "GithubOriginal",
       },
-      {
-        name: "Figma",
-        icon: "FigmaOriginal",
-      },
+      // {
+      //   name: "Figma",
+      //   icon: "FigmaOriginal",
+      // },
       // {
       //   name: "Prisma",
       //   icon: "PrismaOriginal",
