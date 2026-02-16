@@ -2,7 +2,7 @@ import {
   ReactOriginal,
   NextjsOriginal,
   JavascriptOriginal,
-  MaterialuiOriginal,
+  // MaterialuiOriginal,
   NodejsOriginal,
   MysqlOriginal,
   MongodbOriginal,
@@ -102,9 +102,9 @@ const SkillCardBlock = ({ icon, name }) => {
     case "JavascriptOriginal":
       IconComponent = JavascriptOriginal;
       break;
-    case "MaterialuiOriginal":
-      IconComponent = MaterialuiOriginal;
-      break;
+    // case "MaterialuiOriginal":
+    //   IconComponent = MaterialuiOriginal;
+    //   break;
     case "NodejsOriginal":
       IconComponent = NodejsOriginal;
       break;

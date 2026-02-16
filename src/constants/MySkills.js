@@ -72,10 +72,10 @@ export const MySkills = [
         name: "Shadcn UI",
         icon: "ShadcnOriginal",
       },
-      {
-        name: "Material UI",
-        icon: "MaterialuiOriginal",
-      },
+      // {
+      //   name: "Material UI",
+      //   icon: "MaterialuiOriginal",
+      // },
       {
         name: "Redux",
         icon: "ReduxOriginal",
