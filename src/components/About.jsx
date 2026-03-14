@@ -19,7 +19,7 @@ const About = () => {
   };
 
   return (
-    <section className="py-[80px] sm:px-6" id="about">
+    <section className="py-[60px] sm:px-6" id="about">
       <motion.div
         ref={refHeading}
         variants={variants1}

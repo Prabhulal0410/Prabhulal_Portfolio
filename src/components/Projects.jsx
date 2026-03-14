@@ -23,7 +23,7 @@ const Projects = () => {
   const displayedProjects = showAll ? ProjectList : ProjectList.slice(0, 3);
 
   return (
-    <section className="py-[80px] sm:px-6" id="projects">
+    <section className="py-[60px] sm:px-6" id="projects">
       <motion.div
         ref={refHeading}
         variants={variants1}

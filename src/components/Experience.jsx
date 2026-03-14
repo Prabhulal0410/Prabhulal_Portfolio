@@ -26,7 +26,7 @@ const Experience = (props) => {
   };
 
   return (
-    <section className="py-[80px] sm:px-6" id="experience">
+    <section className="py-[60px] sm:px-6" id="experience">
       <motion.div
         ref={refHeading}
         variants={variants1}

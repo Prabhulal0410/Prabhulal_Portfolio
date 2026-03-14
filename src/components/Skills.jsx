@@ -151,7 +151,6 @@ const hex2rgba = (hex, alpha) => {
 
 const SKILLS = [
   { n: "JavaScript", r: 46, color: "#f7df1e", Icon: JavascriptOriginal  },
-  { n: "TypeScript",  r: 43, color: "#3178c6", Icon: TypescriptOriginal  },
   { n: "React",       r: 48, color: "#61dafb", Icon: ReactOriginal       },
   { n: "Next.js",     r: 46, color: "#aaaaaa", Icon: NextjsOriginal      },
   { n: "HTML5",       r: 35, color: "#e44d26", Icon: Html5Original       },

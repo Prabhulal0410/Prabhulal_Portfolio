@@ -83,7 +83,7 @@ export default function HeroSection() {
       {/* ===== Mouse Glow ===== */}
       {isDesktop && (
         <motion.div
-          className="pointer-events-none fixed top-0 left-0 z-0 h-72 w-72 rounded-full bg-blue-500/25 blur-[140px]"
+          className="pointer-events-none fixed top-0 left-0 z-0 h-72 w-72 rounded-full bg-blue-500/25 blur-[100px]"
           style={{
             translateX: smoothX,
             translateY: smoothY,
