@@ -104,8 +104,6 @@
 
 
 
-
-
 "use client";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { motion, useInView, useMotionValue } from "framer-motion";
@@ -143,7 +141,6 @@ import {
 import { FaGithub } from "react-icons/fa";
 import { SiShadcnui } from "react-icons/si";
 
-// ─── hex → rgba helper ────────────────────────────────────────────────────────
 const hex2rgba = (hex, alpha) => {
   const h = hex.replace("#", "");
   const r = parseInt(h.slice(0, 2), 16);
@@ -152,50 +149,30 @@ const hex2rgba = (hex, alpha) => {
   return `rgba(${r},${g},${b},${alpha})`;
 };
 
-// ─── Exact skills from your SkillCardBlock.jsx ────────────────────────────────
-// color = brand hex used ONLY for the glow border + bg tint
-// Icon  = the exact devicon/react-icon component — renders its own natural colors
 const SKILLS = [
-  // Languages
   { n: "JavaScript", r: 46, color: "#f7df1e", Icon: JavascriptOriginal  },
   { n: "TypeScript",  r: 43, color: "#3178c6", Icon: TypescriptOriginal  },
-  { n: "Python",      r: 40, color: "#3776ab", Icon: PythonOriginal      },
-  { n: "C",           r: 33, color: "#a8b9cc", Icon: COriginal           },
-  { n: "C++",         r: 33, color: "#00599c", Icon: CplusplusOriginal   },
-  { n: "C#",          r: 33, color: "#9b4f96", Icon: CsharpOriginal      },
-  { n: "Dart",        r: 31, color: "#00b4ab", Icon: DartOriginal        },
-  // Web / App
   { n: "React",       r: 48, color: "#61dafb", Icon: ReactOriginal       },
   { n: "Next.js",     r: 46, color: "#aaaaaa", Icon: NextjsOriginal      },
-  { n: "Node.js",     r: 42, color: "#68a063", Icon: NodejsOriginal      },
-  { n: "Express",     r: 35, color: "#888888", Icon: ExpressOriginal     },
   { n: "HTML5",       r: 35, color: "#e44d26", Icon: Html5Original       },
   { n: "CSS3",        r: 33, color: "#264de4", Icon: Css3Original        },
   { n: "Tailwind",    r: 43, color: "#38bdf8", Icon: TailwindcssOriginal },
   { n: "Bootstrap",   r: 35, color: "#7952b3", Icon: BootstrapOriginal   },
   { n: "Shadcn UI",   r: 33, color: "#cccccc", Icon: SiShadcnui         },
   { n: "Redux",       r: 35, color: "#764abc", Icon: ReduxOriginal       },
-  { n: "GraphQL",     r: 33, color: "#e10098", Icon: GraphqlPlain        },
-  { n: "Prisma",      r: 31, color: "#5a67d8", Icon: PrismaOriginal      },
-  { n: "MongoDB",     r: 39, color: "#47a248", Icon: MongodbOriginal     },
-  { n: "MySQL",       r: 35, color: "#4479a1", Icon: MysqlOriginal       },
   { n: "Firebase",    r: 37, color: "#ffca28", Icon: FirebaseOriginal    },
   { n: "JSON",        r: 29, color: "#888888", Icon: JsonOriginal        },
-  // Tools
   { n: "Git",         r: 35, color: "#f05032", Icon: GitOriginal         },
   { n: "GitHub",      r: 37, color: "#aaaaaa", Icon: FaGithub            },
   { n: "Postman",     r: 33, color: "#ff6c37", Icon: PostmanOriginal     },
   { n: "Vercel",      r: 31, color: "#cccccc", Icon: VercelOriginal      },
   { n: "Netlify",     r: 29, color: "#00c7b7", Icon: NetlifyOriginal     },
-  { n: "Jira",        r: 29, color: "#0052cc", Icon: JiraOriginal        },
-  { n: "Slack",       r: 29, color: "#4a154b", Icon: SlackPlain          },
 ];
 
-// ─── Style builders ───────────────────────────────────────────────────────────
 const restStyle = (color) => ({
   border:     `1.5px solid ${hex2rgba(color, 0.5)}`,
-  background: hex2rgba(color, 0.06),
-  boxShadow:  `0 0 10px ${hex2rgba(color, 0.25)}, inset 0 0 2px ${hex2rgba(color, 0.15)}`,
+  background: hex2rgba(color, 0.08),
+  boxShadow:  `0 0 12px ${hex2rgba(color, 0.3)}, inset 0 0 4px ${hex2rgba(color, 0.18)}`,
   labelColor: "#9ca3af",
 });
 
@@ -206,16 +183,14 @@ const hoverStyle = (color, t) => ({
   labelColor: t > 0.35 ? "#FAF7F2" : "#E0E2EC",
 });
 
-// ─── Responsive radius scale ──────────────────────────────────────────────────
-// On mobile (width < 640) balls shrink to ~60% so they all fit with room to bounce
 const getScale = (w) => {
-  if (w < 400) return 0.52;
-  if (w < 640) return 0.62;
-  if (w < 900) return 0.80;
+  if (w < 360) return 0.72;
+  if (w < 480) return 0.82;
+  if (w < 640) return 0.88;
+  if (w < 900) return 0.88;
   return 1;
 };
 
-// ─── Physics constants ────────────────────────────────────────────────────────
 const FRICTION  = 0.991;
 const BOUNCE    = 0.70;
 const REPEL_R   = 115;
@@ -223,7 +198,6 @@ const REPEL_STR = 5.8;
 const MAX_SPEED = 13;
 const GRAVITY   = 0.07;
 
-// ─── Single Ball ──────────────────────────────────────────────────────────────
 const Ball = ({ skill, scaledR, stateRef, index }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -236,8 +210,8 @@ const Ball = ({ skill, scaledR, stateRef, index }) => {
   }, []);
 
   const size     = scaledR * 2;
-  const iconSize = Math.max(14, Math.floor(scaledR * 0.55));
-  const lblSize  = Math.max(6,  Math.floor(scaledR * 0.19));
+  const iconSize = Math.max(18, Math.floor(scaledR * 0.60));
+  const lblSize  = Math.max(8,  Math.floor(scaledR * 0.22));
   const IconComp = skill.Icon;
 
   return (
@@ -253,14 +227,13 @@ const Ball = ({ skill, scaledR, stateRef, index }) => {
         flexDirection:  "column",
         alignItems:     "center",
         justifyContent: "center",
-        gap:            3,
+        gap:            4,
         userSelect:     "none",
         cursor:         "none",
         willChange:     "transform",
         border:         style.border,
         background:     style.background,
         boxShadow:      style.boxShadow,
-        // smooth transitions for the glow
         transition:     "border .22s ease, background .22s ease, box-shadow .22s ease",
         x,
         y,
@@ -275,51 +248,16 @@ const Ball = ({ skill, scaledR, stateRef, index }) => {
         damping:   15,
       }}
     >
-      {/*
-        Icon rendered with NO color prop — devicons-react uses its own
-        internal SVG colors (brand colors) when no color is passed.
-        FaGithub and SiShadcnui default to currentColor so we set white.
-      */}
-      <span
-        style={{
-          pointerEvents: "none",
-          zIndex:        2,
-          lineHeight:    1,
-          position:      "relative",
-          display:       "flex",
-          alignItems:    "center",
-          justifyContent:"center",
-          // only applies to react-icons (FaGithub, SiShadcnui) which use currentColor
-          color:         "#E0E2EC",
-        }}
-      >
+      <span style={{ pointerEvents:"none", zIndex:2, lineHeight:1, position:"relative", display:"flex", alignItems:"center", justifyContent:"center", color:"#E0E2EC" }}>
         <IconComp size={iconSize} />
       </span>
-
-      {/* skill name */}
-      <span
-        style={{
-          fontSize:      lblSize,
-          fontWeight:    600,
-          color:         style.labelColor,
-          textAlign:     "center",
-          lineHeight:    1.15,
-          padding:       "0 3px",
-          letterSpacing: "0.1px",
-          pointerEvents: "none",
-          zIndex:        2,
-          position:      "relative",
-          transition:    "color .22s ease",
-          whiteSpace:    "nowrap",
-        }}
-      >
+      <span style={{ fontSize:lblSize, fontWeight:600, color:style.labelColor, textAlign:"center", lineHeight:1.15, padding:"0 3px", letterSpacing:"0.1px", pointerEvents:"none", zIndex:2, position:"relative", transition:"color .22s ease", whiteSpace:"nowrap" }}>
         {skill.n}
       </span>
     </motion.div>
   );
 };
 
-// ─── Physics Arena ────────────────────────────────────────────────────────────
 const SkillArena = () => {
   const arenaRef  = useRef(null);
   const mouseRef  = useRef({ x: -9999, y: -9999, inside: false });
@@ -334,18 +272,30 @@ const SkillArena = () => {
   const rafRef    = useRef(null);
   const sizeRef   = useRef({ w: 900, h: 500 });
   const scaleRef  = useRef(1);
-  const [ready, setReady]       = useState(false);
-  const [arenaH, setArenaH]     = useState(500);
-  const [scale, setScale]       = useState(1);
+  const [ready, setReady]   = useState(false);
+  const [arenaH, setArenaH] = useState(500);
+  const [scale, setScale]   = useState(1);
 
-  // ── init & resize ────────────────────────────────────────────────────────────
+  // KEY FIX: on mobile, height = exactly what rows need. No Math.max minimum.
+  const computeHeight = (w, sc) => {
+    const spacing = Math.floor(100 * sc);
+    const cols    = Math.max(1, Math.floor(w / (spacing + 12)));
+    const rows    = Math.ceil(SKILLS.length / cols);
+    const extraPad = w < 640 ? 8 : 40;
+    const computed  = rows * (spacing + 6) + extraPad;
+    // Desktop keeps a minimum; mobile just fits the content
+    return w < 640 ? computed : Math.max(380, computed);
+  };
+
+  // KEY FIX: balls start at top, not scattered — so gravity pulls them down
+  // into a neat packed layout instead of leaving a gap above
   const initPositions = useCallback((w, h, sc) => {
-    const spacing = Math.floor(92 * sc);
-    const cols    = Math.max(1, Math.floor(w / (spacing + 8)));
+    const spacing = Math.floor(100 * sc);
+    const cols    = Math.max(1, Math.floor(w / (spacing + 12)));
     stateRef.current.forEach((s, i) => {
       const r = Math.round(SKILLS[i].r * sc);
-      s.x  = r + 4 + (i % cols) * (spacing + 4) + Math.random() * 10;
-      s.y  = r + 4 + Math.floor(i / cols) * (spacing + 4) + Math.random() * 10;
+      s.x  = r + 8 + (i % cols) * (spacing + 6) + Math.random() * 6;
+      s.y  = r + 4 + Math.floor(i / cols) * (spacing + 2) + Math.random() * 4; // start near top
       s.vx = (Math.random() - 0.5) * 1.3;
       s.vy = (Math.random() - 0.5) * 1.3;
     });
@@ -355,11 +305,7 @@ const SkillArena = () => {
     if (!arenaRef.current) return;
     const w  = arenaRef.current.offsetWidth;
     const sc = getScale(w);
-    // height: enough rows to fit all balls + breathing room
-    const spacing = Math.floor(92 * sc);
-    const cols    = Math.max(1, Math.floor(w / (spacing + 8)));
-    const rows    = Math.ceil(SKILLS.length / cols);
-    const h       = Math.max(320, rows * (spacing + 4) + spacing);
+    const h  = computeHeight(w, sc);
     sizeRef.current  = { w, h };
     scaleRef.current = sc;
     setArenaH(h);
@@ -373,7 +319,6 @@ const SkillArena = () => {
     stateRef.current.forEach((s) => { s.mvX?.set(s.x); s.mvY?.set(s.y); });
   }, [ready]);
 
-  // ── physics loop ─────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!ready) return;
 
@@ -385,7 +330,6 @@ const SkillArena = () => {
       const repelR   = REPEL_R   * sc;
       const repelStr = REPEL_STR * sc;
 
-      // ball–ball collisions
       for (let i = 0; i < st.length; i++) {
         for (let j = i + 1; j < st.length; j++) {
           const a = st[i], b = st[j];
@@ -408,7 +352,6 @@ const SkillArena = () => {
         }
       }
 
-      // per-ball
       st.forEach((s, i) => {
         const r     = Math.round(SKILLS[i].r * sc);
         const color = SKILLS[i].color;
@@ -431,10 +374,7 @@ const SkillArena = () => {
         s.vy += GRAVITY;
         s.vx *= FRICTION; s.vy *= FRICTION;
         const spd = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
-        if (spd > MAX_SPEED) {
-          s.vx = (s.vx / spd) * MAX_SPEED;
-          s.vy = (s.vy / spd) * MAX_SPEED;
-        }
+        if (spd > MAX_SPEED) { s.vx = (s.vx / spd) * MAX_SPEED; s.vy = (s.vy / spd) * MAX_SPEED; }
 
         s.x += s.vx; s.y += s.vy;
 
@@ -454,15 +394,11 @@ const SkillArena = () => {
     return () => cancelAnimationFrame(rafRef.current);
   }, [ready]);
 
-  // ── resize observer ───────────────────────────────────────────────────────────
   useEffect(() => {
     const ro = new ResizeObserver(([e]) => {
       const w  = e.contentRect.width;
       const sc = getScale(w);
-      const spacing = Math.floor(92 * sc);
-      const cols    = Math.max(1, Math.floor(w / (spacing + 8)));
-      const rows    = Math.ceil(SKILLS.length / cols);
-      const h       = Math.max(320, rows * (spacing + 4) + spacing);
+      const h  = computeHeight(w, sc);
       sizeRef.current  = { w, h };
       scaleRef.current = sc;
       setArenaH(h);
@@ -473,20 +409,15 @@ const SkillArena = () => {
     return () => ro.disconnect();
   }, []);
 
-  // ── pointer / touch tracking ──────────────────────────────────────────────────
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   const [cursorVisible, setCursorVisible] = useState(false);
   const [isMobile, setIsMobile]           = useState(false);
 
-  useEffect(() => {
-    setIsMobile(window.matchMedia("(pointer: coarse)").matches);
-  }, []);
+  useEffect(() => { setIsMobile(window.matchMedia("(pointer: coarse)").matches); }, []);
 
   const getPos = (e, rect) => {
-    if (e.touches) {
-      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
-    }
+    if (e.touches) return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   };
 
@@ -504,10 +435,7 @@ const SkillArena = () => {
   }, []);
 
   const handleTouchEnd = useCallback(() => {
-    // leave repulsion force active briefly then fade
-    setTimeout(() => {
-      mouseRef.current = { x: -9999, y: -9999, inside: false };
-    }, 300);
+    setTimeout(() => { mouseRef.current = { x: -9999, y: -9999, inside: false }; }, 300);
   }, []);
 
   return (
@@ -519,61 +447,28 @@ const SkillArena = () => {
       onTouchMove={(e) => { e.preventDefault(); handleMove(e); }}
       onTouchEnd={handleTouchEnd}
       className="relative w-full overflow-hidden"
-      style={{
-        height:     arenaH,
-        background: "transparent",
-        border:     "none",
-        cursor:     isMobile ? "default" : "none",
-        touchAction: "none",
-      }}
+      style={{ height: arenaH, background: "transparent", border: "none", cursor: isMobile ? "default" : "none", touchAction: "none", borderRadius: "16px" }}
     >
       {ready && SKILLS.map((skill, i) => (
-        <Ball
-          key={skill.n}
-          skill={skill}
-          scaledR={Math.round(skill.r * scale)}
-          index={i}
-          stateRef={stateRef}
-        />
+        <Ball key={skill.n} skill={skill} scaledR={Math.round(skill.r * scale)} index={i} stateRef={stateRef} />
       ))}
-
-      {/* cursor dot — desktop only */}
       {!isMobile && (
-        <motion.div
-          style={{
-            position:      "absolute",
-            width:         10,
-            height:        10,
-            borderRadius:  "50%",
-            background:    "#3182CE",
-            boxShadow:     "0 0 0 3px rgba(49,130,206,0.3)",
-            pointerEvents: "none",
-            translateX:    "-50%",
-            translateY:    "-50%",
-            x:             cursorX,
-            y:             cursorY,
-            opacity:       cursorVisible ? 1 : 0,
-            zIndex:        100,
-          }}
-        />
+        <motion.div style={{ position:"absolute", width:10, height:10, borderRadius:"50%", background:"#3182CE", boxShadow:"0 0 0 3px rgba(49,130,206,0.3)", pointerEvents:"none", translateX:"-50%", translateY:"-50%", x:cursorX, y:cursorY, opacity:cursorVisible ? 1 : 0, zIndex:100 }} />
       )}
     </div>
   );
 };
 
-// ─── Skills Section ───────────────────────────────────────────────────────────
 const Skills = () => {
   const headingRef    = useRef(null);
   const headingInView = useInView(headingRef, { once: false });
   const arenaRef      = useRef(null);
   const arenaInView   = useInView(arenaRef, { once: true, amount: 0.1 });
   const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    setIsMobile(window.matchMedia("(pointer: coarse)").matches);
-  }, []);
+  useEffect(() => { setIsMobile(window.matchMedia("(pointer: coarse)").matches); }, []);
 
   return (
-    <section className="sm:px-6 py-20 sm:py-[80px]" id="skills">
+    <section className="px-3 sm:px-6 py-10 sm:py-[80px]" id="skills">
       <motion.div
         ref={headingRef}
         initial={{ opacity: 0, y: 50 }}
@@ -581,9 +476,7 @@ const Skills = () => {
         transition={{ duration: 0.6 }}
         className="flex items-center gap-4"
       >
-        <h3 className="text-textWhite text-3xl font-[800] sm:text-5xl">
-          Skills
-        </h3>
+        <h3 className="text-textWhite text-3xl font-[800] sm:text-5xl">Skills</h3>
         <div className="bg-heading mt-2 h-[4px] min-w-0 flex-grow" />
       </motion.div>
 
@@ -592,11 +485,11 @@ const Skills = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={arenaInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7 }}
-        className="mt-8"
+        className="mt-2 sm:mt-8"
       >
         <SkillArena />
-        <p className="text-center text-[10px] tracking-[3px] text-textLight mt-2 uppercase font-sans">
-          {isMobile ? "Touch to interact" : "Move cursor to interact"}
+        <p className="text-center mt-8 uppercase font-sans" style={{ fontSize: isMobile ? "11px" : "10px", letterSpacing: "3px", color: "rgba(156,163,175,0.75)" }}>
+          ✦ Touch & drag to interact ✦
         </p>
       </motion.div>
     </section>
