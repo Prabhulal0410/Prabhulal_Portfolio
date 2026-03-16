@@ -103,7 +103,6 @@
 // └────────────────────────┘
 
 
-
 "use client";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { motion, useInView, useMotionValue } from "framer-motion";
@@ -275,26 +274,22 @@ const SkillArena = () => {
   const [arenaH, setArenaH] = useState(500);
   const [scale, setScale]   = useState(1);
 
-  // KEY FIX: on mobile, height = exactly what rows need. No Math.max minimum.
   const computeHeight = (w, sc) => {
     const spacing = Math.floor(100 * sc);
     const cols    = Math.max(1, Math.floor(w / (spacing + 12)));
     const rows    = Math.ceil(SKILLS.length / cols);
     const extraPad = w < 640 ? 8 : 40;
     const computed  = rows * (spacing + 6) + extraPad;
-    // Desktop keeps a minimum; mobile just fits the content
     return w < 640 ? computed : Math.max(380, computed);
   };
 
-  // KEY FIX: balls start at top, not scattered — so gravity pulls them down
-  // into a neat packed layout instead of leaving a gap above
   const initPositions = useCallback((w, h, sc) => {
     const spacing = Math.floor(100 * sc);
     const cols    = Math.max(1, Math.floor(w / (spacing + 12)));
     stateRef.current.forEach((s, i) => {
       const r = Math.round(SKILLS[i].r * sc);
       s.x  = r + 8 + (i % cols) * (spacing + 6) + Math.random() * 6;
-      s.y  = r + 4 + Math.floor(i / cols) * (spacing + 2) + Math.random() * 4; // start near top
+      s.y  = r + 4 + Math.floor(i / cols) * (spacing + 2) + Math.random() * 4;
       s.vx = (Math.random() - 0.5) * 1.3;
       s.vy = (Math.random() - 0.5) * 1.3;
     });
@@ -420,6 +415,16 @@ const SkillArena = () => {
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   };
 
+  // ── FIX: track where the touch started so we can detect scroll vs drag ──
+  const touchStartRef = useRef({ x: 0, y: 0 });
+
+  const handleTouchStart = useCallback((e) => {
+    touchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    };
+  }, []);
+
   const handleMove = useCallback((e) => {
     const rect = arenaRef.current.getBoundingClientRect();
     const { x, y } = getPos(e, rect);
@@ -443,10 +448,26 @@ const SkillArena = () => {
       onMouseMove={handleMove}
       onMouseEnter={() => !isMobile && setCursorVisible(true)}
       onMouseLeave={handleLeave}
-      onTouchMove={(e) => { e.preventDefault(); handleMove(e); }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={(e) => {
+        const dx = Math.abs(e.touches[0].clientX - touchStartRef.current.x);
+        const dy = Math.abs(e.touches[0].clientY - touchStartRef.current.y);
+        // Only block native scroll if the gesture is more horizontal than vertical
+        if (dx > dy) {
+          e.preventDefault();
+        }
+        handleMove(e);
+      }}
       onTouchEnd={handleTouchEnd}
       className="relative w-full overflow-hidden"
-      style={{ height: arenaH, background: "transparent", border: "none", cursor: isMobile ? "default" : "none", touchAction: "none", borderRadius: "16px" }}
+      style={{
+        height:        arenaH,
+        background:    "transparent",
+        border:        "none",
+        cursor:        isMobile ? "default" : "none",
+        touchAction:   "pan-y",   // ← KEY FIX: allow vertical scroll on mobile
+        borderRadius:  "16px",
+      }}
     >
       {ready && SKILLS.map((skill, i) => (
         <Ball key={skill.n} skill={skill} scaledR={Math.round(skill.r * scale)} index={i} stateRef={stateRef} />
