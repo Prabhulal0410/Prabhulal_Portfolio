@@ -152,14 +152,14 @@ export default function HeroSection() {
 
             {/* Download CV */}
             <motion.a
-              href="https://drive.google.com/file/d/1jGYUrbQOhMENx_6cvO7qMSAXRSZJe92K/view?usp=sharing"
+              href="https://drive.google.com/file/d/1kNks1ad4s7hlwfw1loAIOvOUC54JAxhc/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.06, y: -3 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-full border-2 border-white px-8 py-3 font-medium text-white sm:w-auto"
             >
-              Download CV
+              Download Resume
               <FaDownload />
             </motion.a>
           </div>
