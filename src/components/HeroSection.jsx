@@ -152,7 +152,7 @@ export default function HeroSection() {
 
             {/* Download CV */}
             <motion.a
-              href="https://drive.google.com/file/d/1kNks1ad4s7hlwfw1loAIOvOUC54JAxhc/view?usp=sharing"
+              href="https://drive.google.com/file/d/1mfmlMIZp0MkqowCFl-GQ0BTR7SQvuDg_/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.06, y: -3 }}
